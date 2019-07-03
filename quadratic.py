@@ -1,25 +1,34 @@
-# Andrzej Kocielski, 2019-07-02
-# Application of methods for conversion of units of measurement
-# Inspired by www.pasja-informatyki.pl
-
+# Andrzej Kocielski, 2019-07-03
+# This program resolves quadratic equotion ax^2+bx+c=0.
+# Inspired by Socratica at https://youtu.be/g8nQ90Hk328.
 ###
 
-# Definition of methods that converts length from milimeters to imperial units
+
+# Import of required modules
+
+import math  # this module includes square root method
 
 
-def inches(m):
-    """Returns value passed in mm converted to inches."""
-    inch = m/25.4
-    return inch
+# Definition of the method resolving the quadratic equation problem for a, b and c parameters.
 
+def quadratic(a, b, c):
+    """For passed parameters a, b and c of the quadratic equation, returns the roots."""
+    # Compute the discriminant (b^2-4ac)
+    disc = b**2 - 4*a*c
 
-def feet(m):
-    """Returns value passed in mm converted to feet."""
-    return m/25.4/12
+    # Compute the roots depending on the discriminant
+    if disc > 0:
+        root1 = (-b - math.sqrt(disc)) / (2*a)
+        root2 = (-b + math.sqrt(disc)) / (2*a)
+        # return as a tuple
+        return print("The equation has two real roots: ", (root1, root2))
+    elif disc == 0:
+        root = -b / 2*a
+        return print("The equation has a single real root: ", root)
+    else:
+        return print("The equation has no real root.")
 
 
 # Main body of the program
-mm = float(input("Enter length in milimiters: "))
-
-print("The length converted to inches is ", round(inches(mm), 1))
-print("The length converted to feet is ", round(feet(mm), 2))
+# For simlicity and for testing, the a, b and c values are explicitely given.
+quadratic(1.0, 0.0, -4.0)
