@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# Moje - pdf
+*.pdf
+
+# Moje - inne foldery
+.*
