@@ -109,3 +109,4 @@ venv.bak/
 
 # Moje - inne foldery
 .*
+/coin_flip_statistics/*
