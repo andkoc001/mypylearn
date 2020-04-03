@@ -1,5 +1,6 @@
 # Andrzej Kocielski, 03-05-2019
 # Bubblesort script
+# Source: https://blog.finxter.com/daily-python-puzzle-bubble-sort/
 # ===
 
 
