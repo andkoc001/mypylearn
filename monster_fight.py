@@ -1,7 +1,7 @@
 # Monster Fight Game
-# Based on tutorial: https://www.youtube.com/watch?v=kDdTgxv2Vv0
 # Author: Andrzej Kocielski
 # Created: 02-08-2020
+# Based on tutorial by Manuel Lorenz: https://www.youtube.com/watch?v=kDdTgxv2Vv0
 # ------------------------------
 
 # -----
@@ -15,26 +15,44 @@ def main():
 
     game_running = True
 
+    # set fights counter
+    fight_counter = 0
+
+    # initiate empty list of game results
+    game_stats = []
+
+    # the outer 'while' loop
     while game_running == True:
+
+        # increment fight counter
+        fight_counter = fight_counter + 1
+
+        # set a round counter
+        round_counter = 0
 
         new_round = True
 
         # assign player's variables to a dictionary (in the above sequence)
         player = {"name": "Mighty Player",
-                  "attack": 10, "heal": 16, "health": 60}
+                  "attack": 10, "heal": 36, "health": 60}
         # print(player["name"])
 
         # assign monster's variables to a dictionary (in the above sequence)
         monster = {"name": "Terrible Monster",
                    "attack_min": 10, "attack_max": 20, "heal": 0, "health": 70}
 
+        # the inner 'while' loop
         while new_round == True:
+
+            # increment round counter
+            round_counter = round_counter + 1
 
             # Interface / Menu
             print("Select your action:")
             print("-"*19)
             print("1) Attack")
             print("2) Heal")
+            print("3) Show stats")
             print()
             print("Q) Quit game")
 
@@ -52,7 +70,10 @@ def main():
                 monster["health"] = monster["health"] - player["attack"]
                 # check if monster defeated
                 if player["health"] <= 0 or monster["health"] <= 0:
-                    end_game(player["name"])
+                    round_result = {"fight": fight_counter,
+                                    "name": player["name"], "health": player["health"], "rounds": round_counter}
+                    game_stats.append(round_result)
+                    end_game(player["name"], round_counter, round_result)
                     player_won = True
 
                 # monster retaliates
@@ -63,7 +84,10 @@ def main():
                             monster["attack_min"], monster["attack_max"])
                     # check if player defeated
                     if player["health"] <= 0 or monster["health"] <= 0:
-                        end_game(monster["name"])
+                        round_result = {"fight": fight_counter,
+                                        "name": player["name"], "health": player["health"], "rounds": round_counter}
+                        game_stats.append(round_result)
+                        end_game(monster["name"], round_counter, round_result)
                         monster_won = True
 
             # Choice 2 - player heals onself
@@ -78,8 +102,16 @@ def main():
                         monster["attack_min"], monster["attack_max"])
                 # check if player defeated
                 if player["health"] <= 0 or monster["health"] <= 0:
-                    end_game(monster["name"])
+                    round_result = {"fight": fight_counter,
+                                    "name": player["name"], "health": player["health"], "rounds": round_counter}
+                    game_stats.append(round_result)
+                    end_game(player["name"], round_counter, round_result)
                     monster_won = True
+
+            # Choice 3 - show the game stats
+            elif player_choice == "3":
+                for game_stat in game_stats:
+                    print(game_stat)
 
             # Choice Q - quittint the game
             elif player_choice == "q" or player_choice == "Q":
@@ -110,12 +142,14 @@ def calculate_monster_attack(att_min, att_max):
     # return randint(10, 18)
 
 
-def end_game(winner_name):
-    print(f"{winner_name} won the fight!")
+def end_game(winner_name, round_no, stats):
+    print(f"{winner_name} won the fight in {round_no} rounds!")
+    print(f"{stats}")
     print()
 
 
-    # -----
+# -----
+
 if __name__ == "__main__":
     # execute only if run as a script
     main()
