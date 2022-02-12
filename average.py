@@ -6,14 +6,14 @@ user_input = 0
 sum = 0
 average = 0
 
-print("How many number: ")
+print("How many numbers ", end="")
 numbers = int(input())
 
 for number in range(numbers):
-    print("Enter ", number+1, " number:")
+    print("Enter ", number+1, " number: ", end="")
     user_input = float(input())
     sum = sum + user_input
 
 average = sum/numbers
-print("Sum is ", sum)
-print("Average is ", average)
+print("-> Sum is", sum)
+print("-> Average is", average)
